@@ -246,13 +246,26 @@
               facingMode: unityFacingMode,    
               // width:  { ideal: 1920 },                // 또는 { exact: 1920 } 로 강제
               // height: { ideal: 1080 },
-              width:  { ideal: 320 },
-              height: { ideal: 240 },
-              frameRate: { ideal: 120, max: 120 }, // FPS 설정
+              width: window.width,
+              height: window.height,
+              frameRate: window.frameRate, // FPS 설정
           },
           audio: false
         };
+      }
 
+      async function SetWebCamResolutionSetting(width, height, frameRate)
+      {
+          console.log("SetWebCamSetting { width: " + width + ", height: " + height + ", frameRate: " + frameRate + " }");
+          window.WEBCAM_SETTINGS = {
+              video: {
+                  facingMode: window.unityFacingMode,
+                  width:  { ideal: width },                // 또는 { exact: 1920 } 로 강제
+                  height: { ideal: height },
+                  frameRate: { ideal: frameRate, max: frameRate }, // FPS 설정
+              },
+              audio: false
+          };
       }
 
       window.requestingForPermissions = false;
