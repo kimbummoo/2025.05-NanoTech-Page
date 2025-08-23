@@ -83,6 +83,27 @@
     <script src="arcamera.js" type="text/javascript"></script>
     <script src="wtracker.js" type="text/javascript"></script>
     <script>
+
+      // 처음 시작시 카메라 권한 요청
+      function requestCameraPermission() {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(function(stream) {
+            // 권한이 허용되면 스트림을 사용
+            console.log("Camera permission granted");
+
+            // 대기 후에 AR 시작 버튼 보이기
+            setTimeout(() => {
+              stream.getTracks().forEach(track => track.stop());
+              document.getElementById("startARButton").style.visibility = "visible";
+            }, 1000);
+          })
+          .catch(function(err) {
+            // 권한이 거부되면 에러 처리
+            console.error("Camera permission denied:", err);
+          });
+      }
+      requestCameraPermission();
+
       // Disable double-tap to zoom
       document.addEventListener('touchstart', function (event) {
         if (event.touches.length > 1) {
@@ -111,7 +132,7 @@
         }
 
         await LoadWebcams();
-        document.getElementById("startARButton").style.visibility = "visible";
+        // document.getElementById("startARButton").style.visibility = "visible";
 
         window.camPermissionsGranted = await IsCameraPermissionGranted();
         window.motionPermissionsGranted = await IsMotionSensorPermissionGranted();
@@ -130,6 +151,11 @@
       var loadingBar = document.querySelector("#unity-loading-bar");
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
       var warningBanner = document.querySelector("#unity-warning");
+
+      canvas.addEventListener('webglcontextlost', (e)=>{
+        e.preventDefault();   // Safari는 자동 복구 안 됨. 자체 리로드 트리거
+        location.reload();
+      });
 
       // Shows a temporary message banner/ribbon for a few seconds, or
       // a permanent error message on top of the canvas if type=='error'.
