@@ -1,9 +1,9 @@
 const cacheName = "FutureVision-PlaygroundQR-0.1.0";
 const contentToCache = [
     "Build/2025.05-NanoTech-Page.loader.js",
-    "Build/2025.05-NanoTech-Page.framework.js.unityweb",
-    "Build/2025.05-NanoTech-Page.data.unityweb",
-    "Build/2025.05-NanoTech-Page.wasm.unityweb",
+    "Build/2025.05-NanoTech-Page.framework.js",
+    "Build/2025.05-NanoTech-Page.data",
+    "Build/2025.05-NanoTech-Page.wasm",
     "TemplateData/style.css"
 
 ];
